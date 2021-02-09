@@ -1,0 +1,1 @@
+ogr2ogr -f PostgreSQL -sql "select lga_name AS lga from nsw_lga where lga_name = 'RYDE CITY COUNCIL'" -lco SCHEMA=maps PG:"host="127.0.0.1" user="evan" dbname="fbb" password="Toptiger1234"" -lco OVERWRITE=YES -nlt MULTIPOLYGON /Users/evan/Ev/TPG/QGIS/MapData/LGA/NSW_LGA.shp -nln nsw_lga_ryde

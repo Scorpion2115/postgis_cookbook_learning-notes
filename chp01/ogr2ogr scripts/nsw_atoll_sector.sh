@@ -1,0 +1,1 @@
+ogr2ogr -f "PostgreSQL" -lco SCHEMA=gnaf PG:"host="127.0.0.1" user="evan" dbname="fbb" password="Toptiger1234"" -lco OVERWRITE=YES -nlt MULTIPOLYGON /Users/evan/Ev/Python/Geospatial/output/kml/nsw/nsw_atoll_sector.kml -nln nsw_atoll_sector

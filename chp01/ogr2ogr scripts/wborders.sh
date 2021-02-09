@@ -1,0 +1,1 @@
+ogr2ogr -f "PostgreSQL" -lco SCHEMA=chp01 PG:"host="127.0.0.1" user="evan" dbname="postgis_cookbook" password="Toptiger1234"" -lco OVERWRITE=YES -nlt MULTIPOLYGON /Users/evan/Ev/Python/PostGIS-Cookbook/Chapter01/data/wborders/wborders.shp -nln wborders
