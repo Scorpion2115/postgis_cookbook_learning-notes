@@ -37,5 +37,33 @@
 ![img](./img/Merge_Polygon.png?raw=true "Country to State")
 
 ### Compute Intersections
+* Perform a self_spatial join useing `ST_Intersects`
+* Find intersection in the join context with the `ST_Intersection`
+* There are 3 geometry types of intersections:
+  1. `ST_POINT`: two linear geometries intersect each other once
+  2. `ST_MultiPoint`: two linear geometroes intersect each other multiple times
+  3. `ST_GeometryCollection`: two multilinestring objects intetsect and share part of the line
+* In case we only want to show points, we can use `ST_CollectionExtract` function in the context of a `SELECTCASE` statement.
+
 
 ### Clipping geometries to deploy data Simplifying geometries with PostGIS topology
+**User Case**: 
+1. clipping a big dataset into small portions (subsets), with each perhaps representing an area of interest
+
+**Recipe**:
+1. create a view to clip the river geometries for each country using the ST_Intersection and ST_Intersects functions
+2. create scripts `export_rivers.sh` to export a rivers shapefile for each country
+
+**Lesson Learnt**
+1. Clip one dataset from another using `ST_Intersects`
+2. Create a batch script using:
+    * `ogrinfo` with `-sql` option to query the unique country name
+    * `grep` and awk` linux command to clean query result
+    ![img](./img/export_rivers.png)
+    * `for-do-done` loop to iterated every country and 
+    * `ogr2ogr` with `-sql` option to pull query result to a specific shapefile
+
+**code snippets**
+1. sql/clipping.sql
+2. ogr2ogr/export_rivers.sh
+
