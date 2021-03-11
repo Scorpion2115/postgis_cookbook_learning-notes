@@ -4,7 +4,26 @@
 
 
 
-# Outgun
-  • Import multiple gpx files in bulk to Postgresql. Refer to chp03 GPS.sh
-  • WITH Queries (Common Table Expressions) provide a way to write auxiliary statements for use in a larger query. Refer to chp03 distance.sql
+## Foolproof Scripts Template
 
+OS: MacOS or Linux
+
+`ogr2ogr`
+```shell
+# do not use any space!!!
+folder=/Users/evan/Ev/Python/postgis_cookbook_learning-notes/chp03/data/HUN_adm
+data=$folder/HUN_adm1.shp
+
+ogr2ogr -f "PostgreSQL" -t_srs EPSG:3857 -nlt MULTIPOLYGON -lco GEOMETRY_NAME=geom -nln chp03.hungary -lco OVERWRITE=YES PG:"host="127.0.0.1" user="evan" dbname="postgis_cookbook" password="Toptiger1234"" $data
+```
+
+`shp2phsql`
+```shell
+path_in=/Users/evan/Ev/Python/PostGIS-Cookbook/Chapter03/wborders
+path_out=/Users/evan/Ev/Python/PostGIS-Cookbook/ev/shp2pgsql
+
+data_in=$path_in/wborders.shp
+data_out=$path_out/wborders.sql
+
+shp2pgsql -s 4326 -g geom -W LATIN1 -I $data_in chp03.wborders > $data_out
+```
