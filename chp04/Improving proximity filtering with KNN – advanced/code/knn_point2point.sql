@@ -25,3 +25,21 @@ ORDER BY s.gid;
 
 -- optional
 DROP FUNCTION chp04.knn(k int,src_id int);
+
+
+
+-- Using JOIN LATERAL
+CREATE TABLE small_cell.knn_l08_200 AS 
+(SELECT c.lactac, c.enodebid, c.cellid, c.avg_rx, c.n_users, c.n_samples,
+       t."site id", t."batch info", t.activation, t.geom sc_geom,
+	   ST_Distance(c.geom::geography, t.geom::geography) dist
+FROM umlaut.raw_tpg_4g_bs_l08 As c
+JOIN LATERAL (
+  SELECT s.ogc_fid, s."site id", s."batch info", s.activation, s.geom
+  FROM small_cell.site_status AS s
+  WHERE c.avg_rx <= -100
+  ORDER BY c.geom <-> s.geom
+  LIMIT 1
+) AS t
+ON true
+WHERE ST_Distance(c.geom::geography, t.geom::geography) <= 200);
