@@ -27,3 +27,7 @@ data_out=$path_out/wborders.sql
 
 shp2pgsql -s 4326 -g geom -W LATIN1 -I $data_in chp03.wborders > $data_out
 ```
+
+
+## Useful case
+* [google](www.google.com): A extremely useful cases to create a set of grid around points of interest
